@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="YPCWorkshopModelStoreContainer" CdmEntityContainer="YPCWorkshopEntities">
+    <EntitySetMapping Name="Rentals">
+      <EntityTypeMapping TypeName="YPCWorkshopModel.Rental">
+        <MappingFragment StoreEntitySet="Rental">
+          <ScalarProperty Name="rentalId" ColumnName="rentalId" />
+          <ScalarProperty Name="checkOut" ColumnName="checkOut" />
+          <ScalarProperty Name="checkIn" ColumnName="checkIn" />
+          <ScalarProperty Name="volunteerId" ColumnName="volunteerId" />
+          <ScalarProperty Name="toolId" ColumnName="toolId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tools">
+      <EntityTypeMapping TypeName="YPCWorkshopModel.Tool">
+        <MappingFragment StoreEntitySet="Tool">
+          <ScalarProperty Name="toolId" ColumnName="toolId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="assetNumber" ColumnName="assetNumber" />
+          <ScalarProperty Name="brand" ColumnName="brand" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="available" ColumnName="available" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Volunteers">
+      <EntityTypeMapping TypeName="YPCWorkshopModel.Volunteer">
+        <MappingFragment StoreEntitySet="Volunteer">
+          <ScalarProperty Name="volunteerId" ColumnName="volunteerId" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

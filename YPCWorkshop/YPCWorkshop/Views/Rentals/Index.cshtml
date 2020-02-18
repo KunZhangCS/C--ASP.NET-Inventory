@@ -1,0 +1,75 @@
+﻿@model IEnumerable<YPCWorkshop.ViewModels.RentalsViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a href="@Url.Action("Create", "Rentals")" class="btn btn-primary"><i class="fas fa-folder-plus"></i> Create New Rental Record</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RentalId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckOut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToolName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VolunteerName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RentalId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToolName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VolunteerName)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                <a href="@Url.Action("Edit", "Rentals", new {id = item.RentalId})" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
+                <a href="@Url.Action("Details", "Rentals", new {id = item.RentalId})" class="btn btn-info"><i class="fas fa-info"></i> Details</a>
+                <a href="@Url.Action("Delete", "Rentals", new {id = item.RentalId})" class="btn btn-warning"><i class="fas fa-trash-alt"></i> Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+<a href="~/Content/Rental.jpg" class="btn btn-info"><i class="fas fa-question"></i></a>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}

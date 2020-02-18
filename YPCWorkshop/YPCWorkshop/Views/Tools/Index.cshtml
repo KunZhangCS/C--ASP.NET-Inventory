@@ -1,0 +1,77 @@
+﻿@model IEnumerable<YPCWorkshop.Models.Tool>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a href="@Url.Action("Create", "Tools")" class="btn btn-primary"><i class="fas fa-folder-plus"></i> Create New Tool</a>    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssetNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Available)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Available)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.ToolId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ToolId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ToolId })*@
+
+                <a href="@Url.Action("Edit", "Tools", new {id = item.ToolId})" class="btn btn-primary"><i class="fas fa-pen"></i> Edit</a>
+                <a href="@Url.Action("Details", "Tools", new {id = item.ToolId})" class="btn btn-info"><i class="fas fa-info"></i> Details</a>
+                <a href="@Url.Action("Delete", "Tools", new {id = item.ToolId})" class="btn btn-warning"><i class="fas fa-trash-alt"></i> Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+@*Add question mark info*@
+<a href="~/Content/Tool.jpg" class="btn btn-info"><i class="fas fa-question"></i></a>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+    </script>
+}

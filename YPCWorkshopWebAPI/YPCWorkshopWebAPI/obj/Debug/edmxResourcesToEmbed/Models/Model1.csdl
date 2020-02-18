@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="YPCWorkshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Rental">
+    <Key>
+      <PropertyRef Name="rentalId" />
+    </Key>
+    <Property Name="rentalId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="checkOut" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="checkIn" Type="DateTime" Precision="3" />
+    <Property Name="volunteerId" Type="Int32" Nullable="false" />
+    <Property Name="toolId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tool" Relationship="Self.FK_Rental_Tool" FromRole="Rental" ToRole="Tool" />
+    <NavigationProperty Name="Volunteer" Relationship="Self.FK_Rental_Volunteer" FromRole="Rental" ToRole="Volunteer" />
+  </EntityType>
+  <EntityType Name="Tool">
+    <Key>
+      <PropertyRef Name="toolId" />
+    </Key>
+    <Property Name="toolId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="assetNumber" Type="Int32" Nullable="false" />
+    <Property Name="brand" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <Property Name="available" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Rentals" Relationship="Self.FK_Rental_Tool" FromRole="Tool" ToRole="Rental" />
+  </EntityType>
+  <EntityType Name="Volunteer">
+    <Key>
+      <PropertyRef Name="volunteerId" />
+    </Key>
+    <Property Name="volunteerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Rentals" Relationship="Self.FK_Rental_Volunteer" FromRole="Volunteer" ToRole="Rental" />
+  </EntityType>
+  <Association Name="FK_Rental_Tool">
+    <End Role="Tool" Type="Self.Tool" Multiplicity="1" />
+    <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tool">
+        <PropertyRef Name="toolId" />
+      </Principal>
+      <Dependent Role="Rental">
+        <PropertyRef Name="toolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rental_Volunteer">
+    <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+    <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Volunteer">
+        <PropertyRef Name="volunteerId" />
+      </Principal>
+      <Dependent Role="Rental">
+        <PropertyRef Name="volunteerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="YPCWorkshopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Rentals" EntityType="Self.Rental" />
+    <EntitySet Name="Tools" EntityType="Self.Tool" />
+    <EntitySet Name="Volunteers" EntityType="Self.Volunteer" />
+    <AssociationSet Name="FK_Rental_Tool" Association="Self.FK_Rental_Tool">
+      <End Role="Tool" EntitySet="Tools" />
+      <End Role="Rental" EntitySet="Rentals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rental_Volunteer" Association="Self.FK_Rental_Volunteer">
+      <End Role="Volunteer" EntitySet="Volunteers" />
+      <End Role="Rental" EntitySet="Rentals" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

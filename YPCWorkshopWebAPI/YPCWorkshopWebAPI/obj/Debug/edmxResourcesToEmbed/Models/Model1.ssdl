@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="YPCWorkshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Rental">
+    <Key>
+      <PropertyRef Name="rentalId" />
+    </Key>
+    <Property Name="rentalId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="checkOut" Type="datetime" Nullable="false" />
+    <Property Name="checkIn" Type="datetime" />
+    <Property Name="volunteerId" Type="int" Nullable="false" />
+    <Property Name="toolId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tool">
+    <Key>
+      <PropertyRef Name="toolId" />
+    </Key>
+    <Property Name="toolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="assetNumber" Type="int" Nullable="false" />
+    <Property Name="brand" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="available" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Volunteer">
+    <Key>
+      <PropertyRef Name="volunteerId" />
+    </Key>
+    <Property Name="volunteerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="phone" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Rental_Tool">
+    <End Role="Tool" Type="Self.Tool" Multiplicity="1" />
+    <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tool">
+        <PropertyRef Name="toolId" />
+      </Principal>
+      <Dependent Role="Rental">
+        <PropertyRef Name="toolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rental_Volunteer">
+    <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+    <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Volunteer">
+        <PropertyRef Name="volunteerId" />
+      </Principal>
+      <Dependent Role="Rental">
+        <PropertyRef Name="volunteerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="YPCWorkshopModelStoreContainer">
+    <EntitySet Name="Rental" EntityType="Self.Rental" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tool" EntityType="Self.Tool" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Volunteer" EntityType="Self.Volunteer" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Rental_Tool" Association="Self.FK_Rental_Tool">
+      <End Role="Tool" EntitySet="Tool" />
+      <End Role="Rental" EntitySet="Rental" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rental_Volunteer" Association="Self.FK_Rental_Volunteer">
+      <End Role="Volunteer" EntitySet="Volunteer" />
+      <End Role="Rental" EntitySet="Rental" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
